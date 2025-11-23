@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# 处理 React Router 的客户端路由
+# 将所有请求重定向到 index.html，让 React Router 处理路由
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = true
+
