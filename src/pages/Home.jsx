@@ -14,6 +14,16 @@ function Home() {
 
   const fetchData = async () => {
     try {
+      // 检查环境变量
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+      const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+      
+      if (!supabaseUrl || !supabaseKey) {
+        console.error('环境变量未设置！请在 Netlify 中配置环境变量。')
+        setLoading(false)
+        return
+      }
+
       // 获取所有博客文章（假设表名为 posts 或 position）
       const { data: postsData, error: postsError } = await supabase
         .from('职位')
@@ -25,16 +35,57 @@ function Home() {
         .from('类别')
         .select('*')
 
-      if (postsError) throw postsError
-      if (categoriesError) throw categoriesError
+      if (postsError) {
+        console.error('获取文章错误:', postsError)
+        throw postsError
+      }
+      if (categoriesError) {
+        console.error('获取分类错误:', categoriesError)
+        throw categoriesError
+      }
 
       setPosts(postsData || [])
       setCategories(categoriesData || [])
     } catch (error) {
       console.error('Error fetching data:', error)
+      // 即使出错也停止加载，显示空状态
     } finally {
       setLoading(false)
     }
+  }
+
+  // 检查环境变量
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+  const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+  if (!supabaseUrl || !supabaseKey) {
+    return (
+      <div className="env-error">
+        <div className="env-error-content">
+          <h2>⚠️ 环境变量未配置</h2>
+          <p>请在 Netlify 中设置以下环境变量：</p>
+          <ul>
+            <li><strong>VITE_SUPABASE_URL</strong>: {supabaseUrl || '未设置'}</li>
+            <li><strong>VITE_SUPABASE_ANON_KEY</strong>: {supabaseKey ? '已设置' : '未设置'}</li>
+          </ul>
+          <div className="env-error-steps">
+            <h3>设置步骤：</h3>
+            <ol>
+              <li>登录 <a href="https://app.netlify.com" target="_blank" rel="noopener noreferrer">Netlify Dashboard</a></li>
+              <li>进入你的网站项目</li>
+              <li>点击 <strong>Site settings</strong> → <strong>Environment variables</strong></li>
+              <li>添加两个环境变量：
+                <ul>
+                  <li>Key: <code>VITE_SUPABASE_URL</code>, Value: <code>https://gobttcgepiyckujzdakp.supabase.co</code></li>
+                  <li>Key: <code>VITE_SUPABASE_ANON_KEY</code>, Value: <code>sb_publishable_xCnL6wI0soK72MOJfdRALw_j1SRzWDx</code></li>
+                </ul>
+              </li>
+              <li>保存后，重新部署网站</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   if (loading) {

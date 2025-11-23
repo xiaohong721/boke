@@ -132,6 +132,82 @@
   color: #718096;
 }
 
+.env-error {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.env-error-content {
+  background: #fff5f5;
+  border: 2px solid #fc8181;
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+.env-error-content h2 {
+  color: #c53030;
+  margin-bottom: 1rem;
+}
+
+.env-error-content p {
+  color: #4a5568;
+  margin-bottom: 1rem;
+}
+
+.env-error-content ul {
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 5px;
+  margin: 1rem 0;
+  list-style: none;
+}
+
+.env-error-content ul li {
+  padding: 0.5rem 0;
+  color: #2d3748;
+}
+
+.env-error-content code {
+  background: #edf2f7;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+.env-error-steps {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #fc8181;
+}
+
+.env-error-steps h3 {
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.env-error-steps ol {
+  color: #4a5568;
+  line-height: 1.8;
+  padding-left: 1.5rem;
+}
+
+.env-error-steps ol ul {
+  margin-top: 0.5rem;
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+
+.env-error-content a {
+  color: #667eea;
+  text-decoration: none;
+}
+
+.env-error-content a:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 768px) {
   .hero h2 {
     font-size: 2rem;
