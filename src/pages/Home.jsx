@@ -63,25 +63,40 @@ function Home() {
       <div className="env-error">
         <div className="env-error-content">
           <h2>⚠️ 环境变量未配置</h2>
-          <p>请在 Netlify 中设置以下环境变量：</p>
+          <p><strong>重要提示：</strong>Vite 的环境变量在<strong>构建时</strong>注入，添加环境变量后<strong>必须重新部署</strong>才能生效！</p>
+          <p>当前环境变量状态：</p>
           <ul>
-            <li><strong>VITE_SUPABASE_URL</strong>: {supabaseUrl || '未设置'}</li>
-            <li><strong>VITE_SUPABASE_ANON_KEY</strong>: {supabaseKey ? '已设置' : '未设置'}</li>
+            <li><strong>VITE_SUPABASE_URL</strong>: {supabaseUrl ? `已设置 (${supabaseUrl.substring(0, 30)}...)` : '❌ 未设置'}</li>
+            <li><strong>VITE_SUPABASE_ANON_KEY</strong>: {supabaseKey ? `✅ 已设置 (${supabaseKey.substring(0, 20)}...)` : '❌ 未设置'}</li>
           </ul>
           <div className="env-error-steps">
-            <h3>设置步骤：</h3>
+            <h3>🔧 解决步骤（按顺序执行）：</h3>
             <ol>
               <li>登录 <a href="https://app.netlify.com" target="_blank" rel="noopener noreferrer">Netlify Dashboard</a></li>
               <li>进入你的网站项目</li>
               <li>点击 <strong>Site settings</strong> → <strong>Environment variables</strong></li>
-              <li>添加两个环境变量：
+              <li><strong>确认环境变量已添加：</strong>
                 <ul>
                   <li>Key: <code>VITE_SUPABASE_URL</code>, Value: <code>https://gobttcgepiyckujzdakp.supabase.co</code></li>
                   <li>Key: <code>VITE_SUPABASE_ANON_KEY</code>, Value: <code>sb_publishable_xCnL6wI0soK72MOJfdRALw_j1SRzWDx</code></li>
                 </ul>
               </li>
-              <li>保存后，重新部署网站</li>
+              <li><strong>⚠️ 关键步骤：重新部署网站</strong>
+                <ul>
+                  <li>返回网站 Dashboard</li>
+                  <li>点击 <strong>"Deploys"</strong> 标签</li>
+                  <li>点击 <strong>"Trigger deploy"</strong> → <strong>"Clear cache and deploy site"</strong></li>
+                  <li>等待部署完成（1-3分钟）</li>
+                </ul>
+              </li>
+              <li>部署完成后，刷新此页面</li>
             </ol>
+            <div style={{marginTop: '1.5rem', padding: '1rem', background: '#e6fffa', borderRadius: '5px', border: '1px solid #38b2ac'}}>
+              <strong>💡 为什么需要重新部署？</strong>
+              <p style={{marginTop: '0.5rem', marginBottom: 0}}>
+                Vite 在构建时将环境变量直接注入到代码中。如果只在 Netlify 中添加环境变量而不重新构建，代码中仍然没有这些值。
+              </p>
+            </div>
           </div>
         </div>
       </div>
